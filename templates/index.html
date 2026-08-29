@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI Digital Marketing Intelligence</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- ================================= -->
+    <!-- HEADER -->
+    <!-- ================================= -->
+
+    <header>
+
+        <div class="header-content">
+
+            <div>
+
+                <h1>
+                    AI Digital Marketing Intelligence
+                </h1>
+
+                <p>
+                    Analyze campaigns, discover insights,
+                    and predict conversions.
+                </p>
+
+            </div>
+
+
+            <div class="status">
+
+                <span class="status-dot"></span>
+
+                Dashboard Active
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================================= -->
+    <!-- MAIN KPI CARDS -->
+    <!-- ================================= -->
+
+    <section class="metrics">
+
+
+        <div class="card">
+
+            <h3>Total Spend</h3>
+
+            <h2>₹{{ total_spend }}</h2>
+
+            <p class="metric-description">
+                Total advertising expenditure
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>Total Revenue</h3>
+
+            <h2>₹{{ total_revenue }}</h2>
+
+            <p class="metric-description">
+                Revenue generated from campaigns
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>CTR</h3>
+
+            <h2>{{ ctr }}%</h2>
+
+            <p class="metric-description">
+                Click-through rate
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>ROAS</h3>
+
+            <h2>{{ roas }}x</h2>
+
+            <p class="metric-description">
+                Return on advertising spend
+            </p>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ================================= -->
+    <!-- ADDITIONAL METRICS -->
+    <!-- ================================= -->
+
+    <section class="metrics">
+
+
+        <div class="card">
+
+            <h3>Total Clicks</h3>
+
+            <h2>{{ total_clicks }}</h2>
+
+            <p class="metric-description">
+                Total campaign clicks
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>Conversions</h3>
+
+            <h2>{{ total_conversions }}</h2>
+
+            <p class="metric-description">
+                Total campaign conversions
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>Conversion Rate</h3>
+
+            <h2>{{ conversion_rate }}%</h2>
+
+            <p class="metric-description">
+                Click-to-conversion rate
+            </p>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ================================= -->
+    <!-- CHARTS -->
+    <!-- ================================= -->
+
+    <section class="charts">
+
+
+        <div class="chart-card">
+
+            <h2>
+                Revenue by Platform
+            </h2>
+
+            <canvas id="platformChart"></canvas>
+
+        </div>
+
+
+        <div class="chart-card">
+
+            <h2>
+                ROAS by Campaign
+            </h2>
+
+            <canvas id="campaignChart"></canvas>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ================================= -->
+    <!-- RATING SUMMARY -->
+    <!-- ================================= -->
+
+    <section class="rating-summary">
+
+        <div class="rating-summary-card excellent-summary">
+
+            <span class="summary-icon">🟢</span>
+
+            <div>
+
+                <h3>{{ excellent_count }}</h3>
+
+                <p>Excellent</p>
+
+            </div>
+
+        </div>
+
+
+        <div class="rating-summary-card good-summary">
+
+            <span class="summary-icon">🔵</span>
+
+            <div>
+
+                <h3>{{ good_count }}</h3>
+
+                <p>Good</p>
+
+            </div>
+
+        </div>
+
+
+        <div class="rating-summary-card improvement-summary">
+
+            <span class="summary-icon">🟡</span>
+
+            <div>
+
+                <h3>{{ improvement_count }}</h3>
+
+                <p>Needs Improvement</p>
+
+            </div>
+
+        </div>
+
+
+        <div class="rating-summary-card poor-summary">
+
+            <span class="summary-icon">🔴</span>
+
+            <div>
+
+                <h3>{{ poor_count }}</h3>
+
+                <p>Poor</p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================================= -->
+    <!-- CAMPAIGN INSIGHTS -->
+    <!-- ================================= -->
+
+    <section class="insights">
+
+
+        <h2>
+            Campaign Insights
+        </h2>
+
+
+        <div class="insight-grid">
+
+
+            <div class="insight-card">
+
+                <h3>
+                    🏆 Best Campaign
+                </h3>
+
+                <p class="insight-title">
+                    {{ best_campaign_name }}
+                </p>
+
+                <p>
+                    ROAS:
+                    <strong>
+                        {{ best_campaign_roas }}x
+                    </strong>
+                </p>
+
+            </div>
+
+
+            <div class="insight-card">
+
+                <h3>
+                    📉 Lowest Performing Campaign
+                </h3>
+
+                <p class="insight-title">
+                    {{ worst_campaign_name }}
+                </p>
+
+                <p>
+                    ROAS:
+                    <strong>
+                        {{ worst_campaign_roas }}x
+                    </strong>
+                </p>
+
+            </div>
+
+
+            <div class="insight-card">
+
+                <h3>
+                    🥇 Best Platform
+                </h3>
+
+                <p class="insight-title">
+                    {{ best_platform_name }}
+                </p>
+
+                <p>
+                    ROAS:
+                    <strong>
+                        {{ best_platform_roas }}x
+                    </strong>
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="recommendation">
+
+            <h3>
+                💡 Recommendation
+            </h3>
+
+            <p>
+                {{ recommendation }}
+            </p>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ================================= -->
+    <!-- CAMPAIGN PERFORMANCE -->
+    <!-- ================================= -->
+
+    <section class="campaign-table">
+
+
+        <div class="table-heading">
+
+            <div>
+
+                <h2>
+                    Campaign Performance
+                </h2>
+
+                <p>
+                    Aggregated performance by campaign and platform
+                </p>
+
+            </div>
+
+            <a
+                href="{{ url_for('download_report') }}"
+                class="download-button"
+            >
+                📥 Download Campaign Report
+            </a>
+
+        </div>
+
+
+        <!-- FILTERS -->
+
+        <div class="filters">
+
+
+            <div>
+
+                <label for="platformFilter">
+                    Platform
+                </label>
+
+                <select id="platformFilter">
+
+                    <option value="all">
+                        All Platforms
+                    </option>
+
+
+                    {% for platform in platform_list %}
+
+                    <option value="{{ platform }}">
+                        {{ platform }}
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <div>
+
+                <label for="campaignFilter">
+                    Campaign
+                </label>
+
+                <select id="campaignFilter">
+
+                    <option value="all">
+                        All Campaigns
+                    </option>
+
+
+                    {% for campaign in campaign_list %}
+
+                    <option value="{{ campaign }}">
+                        {{ campaign }}
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- TABLE -->
+
+        <div class="table-container">
+
+            <table id="campaignTable">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Campaign</th>
+
+                        <th>Platform</th>
+
+                        <th>CTR</th>
+
+                        <th>Conversion Rate</th>
+
+                        <th>ROAS</th>
+
+                        <th>ROI</th>
+
+                        <th>Rating</th>
+
+                        <th>Recommendation</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for campaign in campaign_table %}
+
+                    <tr>
+
+                        <td>
+
+                            <strong>
+                                {{ campaign.campaign }}
+                            </strong>
+
+                        </td>
+
+
+                        <td>
+                            {{ campaign.platform }}
+                        </td>
+
+
+                        <td>
+                            {{ campaign.CTR }}%
+                        </td>
+
+
+                        <td>
+                            {{ campaign.Conversion_Rate }}%
+                        </td>
+
+
+                        <td>
+
+                            <strong>
+                                {{ campaign.ROAS }}x
+                            </strong>
+
+                        </td>
+
+
+                        <td>
+                            {{ campaign.ROI }}%
+                        </td>
+
+
+                        <td>
+
+
+                            {% if campaign.Rating == "Excellent" %}
+
+                            <span class="rating excellent">
+                                Excellent
+                            </span>
+
+
+                            {% elif campaign.Rating == "Good" %}
+
+                            <span class="rating good">
+                                Good
+                            </span>
+
+
+                            {% elif campaign.Rating == "Needs Improvement" %}
+
+                            <span class="rating improvement">
+                                Needs Improvement
+                            </span>
+
+
+                            {% else %}
+
+                            <span class="rating poor">
+                                Poor
+                            </span>
+
+                            {% endif %}
+
+
+                        </td>
+                        <td class="recommendation-cell">
+
+                         {{ campaign.Recommendation }}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ================================= -->
+    <!-- ML PREDICTION -->
+    <!-- ================================= -->
+
+    <section class="prediction">
+
+
+        <h2>
+            🤖 Conversion Prediction
+        </h2>
+
+
+        <p>
+            Enter campaign information to estimate expected conversions.
+        </p>
+
+
+        <form method="POST">
+
+
+            <div class="prediction-inputs">
+
+
+                <div>
+
+                    <label for="impressions">
+                        Impressions
+                    </label>
+
+                    <input
+                        id="impressions"
+                        type="number"
+                        name="impressions"
+                        placeholder="80000"
+                        min="1"
+                        required
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label for="clicks">
+                        Clicks
+                    </label>
+
+                    <input
+                        id="clicks"
+                        type="number"
+                        name="clicks"
+                        placeholder="4000"
+                        min="0"
+                        required
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label for="spend">
+                        Ad Spend (₹)
+                    </label>
+
+                    <input
+                        id="spend"
+                        type="number"
+                        name="spend"
+                        placeholder="12000"
+                        min="0"
+                        step="0.01"
+                        required
+                    >
+
+                </div>
+
+
+            </div>
+
+
+            <button type="submit">
+                Predict Conversions
+            </button>
+
+
+        </form>
+
+
+
+        {% if prediction is not none %}
+
+        <div class="prediction-result">
+
+            <h3>
+                🤖 Predicted Conversions
+            </h3>
+
+            <p class="prediction-number">
+                {{ prediction }}
+            </p>
+
+            <p class="prediction-text">
+                Estimated conversions based on campaign
+                impressions, clicks, and advertising spend.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+
+
+        {% if error %}
+
+        <div class="error-message">
+
+            <strong>
+                Invalid Input:
+            </strong>
+
+            {{ error }}
+
+        </div>
+
+        {% endif %}
+
+
+    </section>
+
+
+</div>
+
+
+
+<!-- ================================= -->
+<!-- FOOTER -->
+<!-- ================================= -->
+
+<footer>
+
+    <p>
+        AI Digital Marketing Intelligence Platform
+    </p>
+
+    <p>
+        Built with Python • Flask • Pandas • Scikit-learn • Chart.js
+    </p>
+
+</footer>
+
+
+
+<!-- ================================= -->
+<!-- CHART JAVASCRIPT -->
+<!-- ================================= -->
+
+<script>
+
+
+    // =================================
+    // PLATFORM REVENUE CHART
+    // =================================
+
+    const platformNames =
+        {{ platform_names | safe }};
+
+
+    const platformRevenue =
+        {{ platform_revenue | safe }};
+
+
+    new Chart(
+
+        document.getElementById("platformChart"),
+
+        {
+
+            type: "bar",
+
+            data: {
+
+                labels: platformNames,
+
+                datasets: [{
+
+                    label: "Revenue",
+
+                    data: platformRevenue
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                plugins: {
+
+                    legend: {
+
+                        display: false
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    );
+
+
+
+    // =================================
+    // CAMPAIGN ROAS CHART
+    // =================================
+
+    const campaignNames =
+        {{ campaign_names | safe }};
+
+
+    const campaignROAS =
+        {{ campaign_roas | safe }};
+
+
+    new Chart(
+
+        document.getElementById("campaignChart"),
+
+        {
+
+            type: "bar",
+
+            data: {
+
+                labels: campaignNames,
+
+                datasets: [{
+
+                    label: "ROAS",
+
+                    data: campaignROAS
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true
+
+            }
+
+        }
+
+    );
+
+
+    // =================================
+    // TABLE FILTERS
+    // =================================
+
+    const platformFilter =
+        document.getElementById(
+            "platformFilter"
+        );
+
+
+    const campaignFilter =
+        document.getElementById(
+            "campaignFilter"
+        );
+
+
+    function filterTable() {
+
+
+        const selectedPlatform =
+            platformFilter.value;
+
+
+        const selectedCampaign =
+            campaignFilter.value;
+
+
+        const rows =
+            document.querySelectorAll(
+                "#campaignTable tbody tr"
+            );
+
+
+        rows.forEach(function(row) {
+
+
+            const campaign =
+                row.cells[0]
+                    .textContent
+                    .trim();
+
+
+            const platform =
+                row.cells[1]
+                    .textContent
+                    .trim();
+
+
+            const platformMatch =
+                selectedPlatform === "all" ||
+                platform === selectedPlatform;
+
+
+            const campaignMatch =
+                selectedCampaign === "all" ||
+                campaign === selectedCampaign;
+
+
+            if (
+                platformMatch &&
+                campaignMatch
+            ) {
+
+                row.style.display = "";
+
+            }
+
+            else {
+
+                row.style.display = "none";
+
+            }
+
+        });
+
+    }
+
+
+    platformFilter.addEventListener(
+        "change",
+        filterTable
+    );
+
+
+    campaignFilter.addEventListener(
+        "change",
+        filterTable
+    );
+
+
+</script>
+
+
+</body>
+
+</html>
