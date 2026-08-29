@@ -1,6 +1,7 @@
 # AI Digital Marketing Intelligence Platform
 
-A medium-level AI and Data Science project that analyzes digital marketing campaigns, evaluates campaign performance, generates recommendations, and predicts conversions using Machine Learning.
+
+An AI and Data Science project that analyzes digital marketing campaigns, evaluates campaign performance, generates recommendations, and predicts conversions using Machine Learning.
 
 ## 🚀 Features
 
@@ -88,3 +89,11 @@ AI-Digital-Marketing-Intelligence/
 │
 ├── .gitignore
 └── README.md
+
+## 👨‍💻 Author
+
+**Akrish Chandel**
+
+B.Tech Computer Science Engineering (AI & Data Science)
+
+[GitHub](https://github.com/akrishchandel)
